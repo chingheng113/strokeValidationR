@@ -4,5 +4,15 @@ cat("\014")
 library(klaR)
 source('my_util.R')
 tsr_data <- load_tsr_data(5, 'is') # all, 0..5;is/he
-tsr_results <-kmodes(tsr_data$b_data, 5 ,iter.max = 100, weighted = FALSE ) 
-print(tsr_results)
+# -----
+k.max <- 10
+wss <- sapply(1:k.max, 
+              function(k){set.seed(100000)
+                sum(kmodes(tsr_data$b_data, k, iter.max = 100 ,weighted = FALSE)$withindiff)})
+plot(1:k.max, wss,
+     type="b", pch = 19, frame = FALSE, 
+     xlab="Number of clusters K",
+     ylab="Total within-clusters sum of squares")
+# -----
+tsr_results <-kmodes(tsr_data$b_data, 4 ,iter.max = 100, weighted = FALSE )
+

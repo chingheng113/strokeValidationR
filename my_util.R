@@ -25,9 +25,9 @@ load_nih_data <- function(mrs){
 load_tsr_data <- function(mrs, stroke_type){
   data <- load_csv_data('TSR')
   if(stroke_type == 'is'){
-    data <- filter(data, (data$ICD_ID_1.0==1 | data$ICD_ID_2.0==1))
+    data <- filter(data, (data$ICD_ID_1.0=='1' | data$ICD_ID_2.0=='1'))
   }else if (stroke_type == 'he'){
-    data <- filter(data, (data$ICD_ID_3.0==1 | data$ICD_ID_4.0==1))
+    data <- filter(data, (data$ICD_ID_3.0=='1' | data$ICD_ID_4.0=='1'))
   }else{
     # do nothing
   }

@@ -7,8 +7,17 @@ source('my_util.R')
 
 
 # TSR PCA
-tsr_data <- load_tsr_data(5, 'is') # all, 0..5;is/he
-pca_result_tsr <- princomp(tsr_data$b_data, cor = TRUE)
+tsr_data <- load_tsr_data('1', 'is') # all, 0..5;is/he
+# pca_result_tsr <- princomp(tsr_data$b_data, cor = TRUE)
+pca_result_tsr <- prcomp(tsr_data$b_data, scale. = FALSE)
+summary(pca_result_tsr)
+pr_var <- pca_result_tsr$sde^2
+prop_varex <- pr_var/sum(pr_var)
+
+plot(cumsum(prop_varex), xlab = "Principal Component",
+     ylab = "Cumulative Proportion of Variance Explained",
+     type = "b")
+
 autoplot(pca_result_tsr, data = tsr_data$m_data, colour = 'discharged_mrs')+
           scale_color_manual(values = c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00"))
 
