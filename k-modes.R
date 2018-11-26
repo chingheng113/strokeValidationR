@@ -3,7 +3,7 @@ rm(list=ls())
 cat("\014")
 library(klaR)
 source('my_util.R')
-tsr_data <- load_tsr_data(5, 'is') # all, 0..5;is/he
+tsr_data <- load_tsr_data(5, '') # all, 0..5;is/he
 # -----
 k.max <- 10
 wss <- sapply(1:k.max, 
