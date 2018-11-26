@@ -7,9 +7,8 @@ source('my_util.R')
 
 
 # TSR PCA
-tsr_data <- load_tsr_data('1', 'is') # all, 0..5;is/he
-# pca_result_tsr <- princomp(tsr_data$b_data, cor = TRUE)
-pca_result_tsr <- prcomp(tsr_data$b_data, scale. = FALSE)
+tsr_data <- load_tsr_data('3', 'is') # all, 0..5;is/he
+pca_result_tsr <- princomp(tsr_data$b_data, cor = TRUE)
 summary(pca_result_tsr)
 pr_var <- pca_result_tsr$sde^2
 prop_varex <- pr_var/sum(pr_var)
