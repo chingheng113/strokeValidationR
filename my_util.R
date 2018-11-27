@@ -6,21 +6,21 @@ load_csv_data <- function(fName){
   return (raw_data)
 }
 
-load_nih_data <- function(mrs){
-  data <- load_csv_data('NIH')
-  m_data <- dplyr::select(data, discharged_mrs)
-  id_data <- dplyr::select(data, IDCASE_ID)
-  b_data <- dplyr::select(data, c(4:13))
-  n_data <- dplyr::select(data, c(16:30))
-  if (mrs != 'all'){
-    id_data <- id_data[which(m_data==mrs), ]
-    b_data <- b_data[which(m_data==mrs), ]
-    n_data <- n_data[which(m_data==mrs), ]
-    m_data <- filter(m_data, discharged_mrs == mrs)
-  }
-  m_data$discharged_mrs <- as.character(m_data$discharged_mrs)
-  return (list(id_data=id_data, b_data=b_data, n_data=n_data, m_data=m_data))
-}
+# load_nih_data <- function(mrs){
+#   data <- load_csv_data('NIH')
+#   m_data <- dplyr::select(data, discharged_mrs)
+#   id_data <- dplyr::select(data, IDCASE_ID)
+#   b_data <- dplyr::select(data, c(4:13))
+#   n_data <- dplyr::select(data, c(16:30))
+#   if (mrs != 'all'){
+#     id_data <- id_data[which(m_data==mrs), ]
+#     b_data <- b_data[which(m_data==mrs), ]
+#     n_data <- n_data[which(m_data==mrs), ]
+#     m_data <- filter(m_data, discharged_mrs == mrs)
+#   }
+#   m_data <- data.frame(lapply(m_data, as.character), stringsAsFactors=FALSE)
+#   return (list(id_data=id_data, b_data=b_data, n_data=n_data, m_data=m_data))
+# }
 
 load_tsr_data <- function(mrs, stroke_type){
   data <- load_csv_data('TSR')
@@ -39,8 +39,8 @@ load_tsr_data <- function(mrs, stroke_type){
     id_data <- id_data[which(m_data==mrs), ]
     b_data <- b_data[which(m_data==mrs), ]
     n_data <- n_data[which(m_data==mrs), ]
-    m_data <- filter(m_data, discharged_mrs == mrs)
+    m_data <- subset(m_data, discharged_mrs == mrs)
   }
-  m_data$discharged_mrs <- as.character(m_data$discharged_mrs)
+  m_data <- data.frame(lapply(m_data, as.character), stringsAsFactors=FALSE, row.names = rownames(m_data))
   return (list(id_data=id_data, b_data=b_data, n_data=n_data, m_data=m_data))
 }

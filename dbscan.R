@@ -3,22 +3,47 @@ cat("\014")
 library("factoextra")
 library("fpc")
 source('my_util.R')
-tsr_data <- load_tsr_data('all', '') # all, 0..5;is/he
-data <- tsr_data$b_data
-# data <- file.path('data', paste('pca.csv', sep='')) %>%
-  # read.csv(., header = TRUE, sep = ',')
+
+tsr_data <- load_tsr_data('0', 'is') # all, 0..5;is/he
+bData <- tsr_data$b_data
+bData <- unique(bData)
+pca_result_tsr <- prcomp(bData, cor = TRUE)
+x <- pca_result_tsr$x
+# Elbow Method
+# http://rpubs.com/skydome20/R-Note9-Clustering
+fviz_nbclust(bData, 
+             FUNcluster = hcut,  # hierarchical clustering
+             method = "wss",     # total within sum of square
+             k.max = 12          # max number of clusters to consider
+            ) + 
+  
+  labs(title="Elbow Method for HC") +
+  
+  geom_vline(xintercept = 3,       # 在 X=3的地方 
+             linetype = 2)         # 畫一條虛線
+# --------------
+fviz_nbclust(bData, 
+             FUNcluster = kmeans,# K-Means
+             method = "wss",     # total within sum of square
+             k.max = 12          # max number of clusters to consider
+) +
+  
+  labs(title="Elbow Method for K-Means") +
+  
+  geom_vline(xintercept = 3,        # 在 X=3的地方 
+             linetype = 2)          # 畫一條垂直虛線
+
 # distance
-dbscan::kNNdistplot(data, k = 5)
+dbscan::kNNdistplot(bData, k = 2)
 abline(h = 0.15, lty = 2)
 
-
 # k-mean
-km.res = kmeans(data, 5, nstart = 25)
-fviz_cluster(km.res, data, frame = FALSE, geom = "point")
+km.res = kmeans(bData, 2, nstart = 25)
+fviz_cluster(km.res, bData, frame = FALSE, geom = "point")
 
 
 # dbscan
-db = fpc::dbscan(data, eps = 0.3, MinPts = 3)
-plot(db, data, main = "DBSCAN", frame = FALSE)
-fviz_cluster(db, data, stand = FALSE, frame = FALSE, geom = "point")
+db = fpc::dbscan(bData, eps = 6, MinPts = 3)
+# plot(db, bData, main = "DBSCAN", frame = FALSE)
+fviz_cluster(db, bData, stand = FALSE, frame = FALSE, geom = "point")
 print(db)
