@@ -7,8 +7,9 @@ source('my_util.R')
 tsr_data <- load_tsr_data('0', 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
 bData <- unique(bData)
-pca_result_tsr <- prcomp(bData, cor = TRUE)
-x <- pca_result_tsr$x
+# PCA reduction
+pca_result_tsr <- princomp(bData, cor = TRUE)
+bData <- pca_result_tsr$scores
 # Elbow Method
 # http://rpubs.com/skydome20/R-Note9-Clustering
 fviz_nbclust(bData, 
@@ -43,7 +44,7 @@ fviz_cluster(km.res, bData, frame = FALSE, geom = "point")
 
 
 # dbscan
-db = fpc::dbscan(bData, eps = 6, MinPts = 3)
+db = fpc::dbscan(bData, eps = 2, MinPts = 6)
 # plot(db, bData, main = "DBSCAN", frame = FALSE)
 fviz_cluster(db, bData, stand = FALSE, frame = FALSE, geom = "point")
 print(db)
