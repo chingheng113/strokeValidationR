@@ -44,7 +44,8 @@ fviz_cluster(km.res, bData, frame = FALSE, geom = "point")
 
 
 # dbscan
-db = fpc::dbscan(bData, eps = 2, MinPts = 6)
+# http://kanchengzxdfgcv.blogspot.com/2017/08/r-dbscan.html
+db = fpc::dbscan(bData, eps = 1.7, MinPts = 7)
 # plot(db, bData, main = "DBSCAN", frame = FALSE)
 fviz_cluster(db, bData, stand = FALSE, frame = FALSE, geom = "point")
 print(db)
