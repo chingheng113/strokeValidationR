@@ -5,14 +5,14 @@ source('my_util.R')
 
 tsr_data <- load_tsr_data('5', 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
-bData <- unique(bData)
+#bData <- unique(bData)
 # PCA reduction
 pca_result_tsr <- princomp(bData, cor = TRUE)
 bData <- pca_result_tsr$scores
 bData <- bData[,1:2]
 
 ### get order and plot produces a reachability plot
-res <- dbscan::optics(bData, minPts = 11)
+res <- dbscan::optics(bData, minPts = 11) # <-------------------- use unique data or not
 res$order
 
 ### extract a DBSCAN clustering by cutting the reachability plot at eps_cl
