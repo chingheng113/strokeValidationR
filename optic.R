@@ -16,12 +16,12 @@ res <- dbscan::optics(bData, minPts = 11) # <-------------------- use unique dat
 res$order
 
 ### extract a DBSCAN clustering by cutting the reachability plot at eps_cl
-res <- dbscan::extractDBSCAN(res, eps_cl = 0.5)
+res <- dbscan::extractDBSCAN(res, eps_cl = 1)
 plot(res)  ## black is noise
-# dbscan::hullplot(bData, res)
+dbscan::hullplot(bData, res)
 
 ## Do dbscan
-db = fpc::dbscan(bData, eps = 1, MinPts = 11)
+db = fpc::dbscan(bData, eps = 0.5, MinPts = 11)
 plot(db, bData, main = "DBSCAN", frame = FALSE)
 
 ### use OPTICS on a precomputed distance matrix
