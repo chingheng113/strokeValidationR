@@ -9,7 +9,7 @@ source('my_util.R')
 # TSR PCA
 tsr_data <- load_tsr_data('5', 'is') # all..0..5; is/he
 # drop duplicate
-#bData <- unique(tsr_data$b_data)
+bData <- unique(tsr_data$b_data)
 bData <- tsr_data$b_data
 mData <- subset(tsr_data$m_data, rownames(tsr_data$m_data) %in% rownames(bData))
 

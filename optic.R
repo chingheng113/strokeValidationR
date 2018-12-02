@@ -5,7 +5,7 @@ source('my_util.R')
 
 tsr_data <- load_tsr_data('5', 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
-#bData <- unique(bData)
+bData <- unique(bData)
 # PCA reduction
 pca_result_tsr <- princomp(bData, cor = TRUE)
 bData <- pca_result_tsr$scores
@@ -16,12 +16,13 @@ res <- dbscan::optics(bData, minPts = 11) # <-------------------- use unique dat
 res$order
 
 ### extract a DBSCAN clustering by cutting the reachability plot at eps_cl
-res <- dbscan::extractDBSCAN(res, eps_cl = 1)
+res <- dbscan::extractDBSCAN(res, eps_cl = 0.5)
 plot(res)  ## black is noise
 dbscan::hullplot(bData, res)
 
 ## Do dbscan
 db = fpc::dbscan(bData, eps = 0.5, MinPts = 11)
+outliers <- bData[db$cluster==0,]
 plot(db, bData, main = "DBSCAN", frame = FALSE)
 
 ### use OPTICS on a precomputed distance matrix
