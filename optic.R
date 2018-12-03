@@ -1,3 +1,4 @@
+# https://cran.r-project.org/web/packages/dbscan/dbscan.pdf
 rm(list=ls())
 cat("\014")
 library("fpc")
@@ -16,7 +17,7 @@ res <- dbscan::optics(bData, minPts = 11) # <-------------------- use unique dat
 res$order
 
 ### extract a DBSCAN clustering by cutting the reachability plot at eps_cl
-res <- dbscan::extractDBSCAN(res, eps_cl = 0.5)
+res <- dbscan::extractDBSCAN(res, eps_cl = 0.55)
 plot(res)  ## black is noise
 dbscan::hullplot(bData, res)
 
