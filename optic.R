@@ -4,21 +4,23 @@ cat("\014")
 library("fpc")
 source('my_util.R')
 
-tsr_data <- load_tsr_data('0', 'is') # all, 0..5;is/he
+tsr_data <- load_tsr_data('2', 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
 bData <- unique(bData)# <-------------------- use unique data or not
+# if do PCA hide next
+bData <- scale(bData)
 # PCA reduction
-pca_result_tsr <- princomp(bData, cor = TRUE)
-bData <- pca_result_tsr$scores
-bData <- bData[,1:2]
+#pca_result_tsr <- princomp(bData, cor = TRUE)
+#bData <- pca_result_tsr$scores
+#bData <- bData[,1:2]
 
 ### get order and plot produces a reachability plot
-num_sample <- round(nrow(bData)*0.025, digits = 0)
-res <- dbscan::optics(bData, minPts = num_sample) 
+#num_sample <- round(nrow(bData)*0.01, digits = 0)
+res <- dbscan::optics(bData, minPts = 11) 
 res$order
 
 ### extract a DBSCAN clustering by cutting the reachability plot at eps_cl
-res <- dbscan::extractDBSCAN(res, eps_cl = 1.5)
+res <- dbscan::extractDBSCAN(res, eps_cl = 2.1)
 plot(res)  ## black is noise
 dbscan::hullplot(bData, res)
 
