@@ -4,37 +4,39 @@ cat("\014")
 library("fpc")
 source('my_util.R')
 
-tsr_data <- load_tsr_data('2', 'is') # all, 0..5;is/he
+tsr_data <- load_tsr_data('3', 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
-bData <- unique(bData)# <-------------------- use unique data or not
+
 # if do PCA hide next
-bData <- scale(bData)
+#bData <- scale(bData)
+#bData <- unique(bData)# <-------------------- use unique data or not
 # PCA reduction
-#pca_result_tsr <- princomp(bData, cor = TRUE)
-#bData <- pca_result_tsr$scores
-#bData <- bData[,1:2]
+pca_result_tsr <- princomp(bData, cor = TRUE)
+bData_pca <- pca_result_tsr$scores
+bData_pca <- bData_pca[,1:2]
+bData_pca_unique <- unique(bData_pca)
 
 ### get order and plot produces a reachability plot
 #num_sample <- round(nrow(bData)*0.01, digits = 0)
-res <- dbscan::optics(bData, minPts = 11) 
+res <- dbscan::optics(bData_pca_unique, minPts = 11) 
 res$order
 
 ### extract a DBSCAN clustering by cutting the reachability plot at eps_cl
-res <- dbscan::extractDBSCAN(res, eps_cl = 2.1)
+res <- dbscan::extractDBSCAN(res, eps_cl = 0.4)
 plot(res)  ## black is noise
-dbscan::hullplot(bData, res)
-
-## Do dbscan
-db = fpc::dbscan(bData, eps = 0.5, MinPts = 11)
-outliers <- bData[db$cluster==0,]
-plot(db, bData, main = "DBSCAN", frame = FALSE)
-
-### use OPTICS on a precomputed distance matrix
-d <- dist(bData)
-res <- dbscan::optics(d, minPts = 10)
-plot(res)
-
-
-### plot the order of points in the reachability plot
-plot(bData, col = "grey")
-polygon(bData[res$order,])
+# dbscan::hullplot(bData, res)
+# 
+# ## Do dbscan
+# db = fpc::dbscan(bData, eps = 0.5, MinPts = 11)
+# outliers <- bData[db$cluster==0,]
+# plot(db, bData, main = "DBSCAN", frame = FALSE)
+# 
+# ### use OPTICS on a precomputed distance matrix
+# d <- dist(bData)
+# res <- dbscan::optics(d, minPts = 10)
+# plot(res)
+# 
+# 
+# ### plot the order of points in the reachability plot
+# plot(bData, col = "grey")
+# polygon(bData[res$order,])
