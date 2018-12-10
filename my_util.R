@@ -44,3 +44,10 @@ load_tsr_data <- function(mrs, stroke_type){
   m_data <- data.frame(lapply(m_data, as.character), stringsAsFactors=FALSE, row.names = rownames(m_data))
   return (list(id_data=id_data, b_data=b_data, n_data=n_data, m_data=m_data))
 }
+
+
+load_nih_test <- function(mrs){
+  fileName <- paste('testing_', mrs, '_pca', sep='') 
+  data <- load_csv_data(fileName)
+  return (data)
+}
