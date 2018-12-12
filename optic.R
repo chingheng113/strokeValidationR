@@ -4,7 +4,7 @@ cat("\014")
 library("fpc")
 source('my_util.R')
 
-tsr_data <- load_tsr_data('5', 'is') # all, 0..5;is/he
+tsr_data <- load_tsr_data('4', 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
 
 # if do PCA hide next

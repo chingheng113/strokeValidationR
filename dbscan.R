@@ -5,7 +5,7 @@ library("fpc")
 library("caret")
 source('my_util.R')
 
-mrs = '5'
+mrs = '4'
 tsr_data <- load_tsr_data(mrs, 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
 
@@ -16,7 +16,7 @@ bData_pca <- bData_pca[,1:2]
 bData_pca_unique <- unique(bData_pca)
 
 #dbscan
-res <- fpc::dbscan(bData_pca_unique, eps = 2.1, MinPts = 11)
+res <- fpc::dbscan(bData_pca_unique, eps = 1, MinPts = 11)
 train_label <- res$cluster
 train_label <- replace(train_label, train_label == 0, -1) # <- consist with python
 train_label <-replace(train_label, train_label > -1, 0) # <- consist with pyhton
