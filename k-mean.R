@@ -13,7 +13,7 @@ bData_pca_unique <- unique(bData_pca)
 
 # distance
 dbscan::kNNdistplot(bData_pca_unique, k = 10)
-abline(h = 0.15, lty = 2)
+abline(h = 0.5, lty = 2)
 
 # k-mean
 km.res = kmeans(bData_pca_unique, 10, nstart = 25)
