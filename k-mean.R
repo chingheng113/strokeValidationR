@@ -4,7 +4,7 @@ library("factoextra")
 library("fpc")
 source('my_util.R')
 
-tsr_data <- load_tsr_data('4', 'is') # all, 0..5;is/he
+tsr_data <- load_tsr_data('5', 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
 pca_result_tsr <- princomp(bData, cor = TRUE)
 bData_pca <- pca_result_tsr$scores
@@ -48,6 +48,6 @@ plot(k.values, avg_sil_values,
 # ====================================================================
 
 # k-mean
-km.res = kmeans(bData_pca_unique, 4, nstart = 25)
+km.res = kmeans(bData_pca_unique, 2, nstart = 25)
 fviz_cluster(km.res, bData_pca_unique, frame = FALSE, geom = "point")
 table(km.res$cluster)

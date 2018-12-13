@@ -23,7 +23,7 @@ load_csv_data <- function(fName){
 # }
 
 load_tsr_data <- function(mrs, stroke_type){
-  data <- load_csv_data('TSR')
+  data <- load_csv_data('TSR_cleaned')
   if(stroke_type == 'is'){
     data <- filter(data, (data$ICD_ID_1.0=='1' | data$ICD_ID_2.0=='1'))
   }else if (stroke_type == 'he'){
@@ -31,7 +31,7 @@ load_tsr_data <- function(mrs, stroke_type){
   }else{
     # do nothing
   }
-  id_data <- dplyr::select(data, IDCASE_ID)
+  id_data <- dplyr::select(data, CASE_ID)
   m_data <- dplyr::select(data, discharged_mrs)
   b_data <- dplyr::select(data, c(4:13))
   n_data <- dplyr::select(data, c(16:30))
