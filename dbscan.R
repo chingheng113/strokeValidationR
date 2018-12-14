@@ -5,7 +5,7 @@ library("fpc")
 library("caret")
 source('my_util.R')
 
-mrs = '5'
+mrs = '4'
 tsr_data <- load_tsr_data(mrs, 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
 
@@ -16,7 +16,7 @@ bData_pca <- bData_pca[,1:2]
 bData_pca_unique <- unique(bData_pca)
 
 #dbscan
-res <- fpc::dbscan(bData_pca_unique, eps = 1.3, MinPts = 6)
+res <- fpc::dbscan(bData_pca_unique, eps = 0.8, MinPts = 30)
 ## plot clusters and add noise (cluster 0) as crosses.
 # plot(bData_pca_unique, col=res$cluster)
 # points(bData_pca_unique[res$cluster==0,], pch = 3, col = "grey")
