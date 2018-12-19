@@ -10,7 +10,7 @@ tsr_data <- load_tsr_data(mrs, 'is') # all, 0..5;is/he
 bData <- tsr_data$b_data
 
 # PCA reduction
-pca_result_tsr <- princomp(bData, cor = TRUE)
+pca_result_tsr <- princomp(bData, cor = FALSE)
 bData_pca <- pca_result_tsr$scores
 bData_pca <- bData_pca[,1:2]
 bData_pca_unique <- unique(bData_pca)
