@@ -7,7 +7,7 @@ source('my_util.R')
 
 
 # TSR PCA
-tsr_data <- load_tsr_data('all', 'is') # all..0..5; is/he
+tsr_data <- load_tsr_data('all', '') # all..0..5; is/he
 # drop duplicate
 bData <- tsr_data$b_data
 #bData <- tsr_data$b_data

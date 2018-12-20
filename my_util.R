@@ -23,7 +23,7 @@ load_csv_data <- function(fName){
 # }
 
 load_tsr_data <- function(mrs, stroke_type){
-  data <- load_csv_data('TSR_cleaned')
+  data <- load_csv_data('TSR_2017')
   if(stroke_type == 'is'){
     data <- filter(data, (data$ICD_ID_1.0=='1' | data$ICD_ID_2.0=='1'))
   }else if (stroke_type == 'he'){
