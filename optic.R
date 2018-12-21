@@ -22,7 +22,7 @@ res <- dbscan::optics(bData_pca_unique, minPts = 11)
 res$order
 
 ### extract a DBSCAN clustering by cutting the reachability plot at eps_cl
-res <- dbscan::extractDBSCAN(res, eps_cl = 1.3)
+res <- dbscan::extractDBSCAN(res, eps_cl = 4)
 plot(res)  ## black is noise
 # dbscan::hullplot(bData, res)
 # 
