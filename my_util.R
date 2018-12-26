@@ -23,7 +23,7 @@ load_csv_data <- function(fName){
 # }
 
 load_tsr_data <- function(mrs, stroke_type){
-  data <- load_csv_data('TSR_2017')
+  data <- load_csv_data('TSR_2017_cleaned')
   if(stroke_type == 'is'){
     data <- filter(data, (data$ICD_ID_1.0=='1' | data$ICD_ID_2.0=='1'))
   }else if (stroke_type == 'he'){
@@ -46,8 +46,8 @@ load_tsr_data <- function(mrs, stroke_type){
 }
 
 
-load_nih_test <- function(mrs){
-  fileName <- paste('testing_', mrs, '_pca', sep='') 
+load_test <- function(dataset, mrs){
+  fileName <- paste(dataset, '_testing_', mrs, '_org', sep='') 
   data <- load_csv_data(fileName)
   return (data)
 }
