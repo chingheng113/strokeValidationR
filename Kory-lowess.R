@@ -9,7 +9,7 @@ options(object.size=Inf)
 
 data <- read.table("data.txt",header=T,row.names=1)
 lowess.data <- lowess(as.numeric(unlist(data[,1]))~as.numeric(unlist(data[,2])),f=1/32)
-plot(as.numeric(unlist(data[,2])),as.numeric(unlist(data[,1])),xlab="BAR",ylab="MRS",main="LOWESS (f=1/32)",col=2)
+plot(as.numeric(unlist(data[,2])),as.numeric(unlist(data[,1])),xlab="MRS",ylab="BAR",main="LOWESS (f=1/32)",col=2)
 lines(lowess.data$x,lowess.data$y,lwd=2)
 
 mrs.0 <- data[data[,2]==0,1]
