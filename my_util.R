@@ -51,3 +51,28 @@ load_test <- function(dataset, mrs){
   data <- load_csv_data(fileName)
   return (data)
 }
+
+data_clean <- function(data_name, filter.levels.lower, filter.levels.upper){
+  data <- load_csv_data(data_name)
+  
+  keep.mrs.0 <- filter(data, data$discharged_mrs == '0')
+  keep.mrs.0 <- filter(keep.mrs.0, (keep.mrs.0$Barthel_Total > filter.levels.lower[1] & keep.mrs.0$Barthel_Total < filter.levels.upper[1]))
+  
+  keep.mrs.1 <- filter(data, data$discharged_mrs == '1')
+  keep.mrs.1 <- filter(keep.mrs.1, (keep.mrs.1$Barthel_Total > filter.levels.lower[2] & keep.mrs.1$Barthel_Total < filter.levels.upper[2]))
+  
+  keep.mrs.2 <- filter(data, data$discharged_mrs == '2')
+  keep.mrs.2 <- filter(keep.mrs.2, (keep.mrs.2$Barthel_Total > filter.levels.lower[3] & keep.mrs.2$Barthel_Total < filter.levels.upper[3]))
+  
+  keep.mrs.3 <- filter(data, data$discharged_mrs == '3')
+  keep.mrs.3 <- filter(keep.mrs.3, (keep.mrs.3$Barthel_Total > filter.levels.lower[4] & keep.mrs.3$Barthel_Total < filter.levels.upper[4]))
+  
+  keep.mrs.4 <- filter(data, data$discharged_mrs == '4')
+  keep.mrs.4 <- filter(keep.mrs.4, (keep.mrs.4$Barthel_Total > filter.levels.lower[5] & keep.mrs.4$Barthel_Total < filter.levels.upper[5]))
+  
+  keep.mrs.5 <- filter(data, data$discharged_mrs == '5')
+  keep.mrs.5 <- filter(keep.mrs.5, (keep.mrs.5$Barthel_Total > filter.levels.lower[6] & keep.mrs.5$Barthel_Total < filter.levels.upper[6]))
+  
+  final.keep.set <- rbind(keep.mrs.0, keep.mrs.1, keep.mrs.2, keep.mrs.3, keep.mrs.4, keep.mrs.5)
+  return (final.keep.set)
+}
