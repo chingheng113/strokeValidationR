@@ -1,16 +1,14 @@
-# NOT RUN {
-### a 5-dimensional toy-example:
+rm(list=ls())
+cat("\014")
 
-## generate data set with two groups of data:
-set.seed(1)
-x <- rbind(matrix(rbinom(250, 2, 0.25), ncol = 5),
-           matrix(rbinom(250, 2, 0.75), ncol = 5))
-colnames(x) <- c("a", "b", "c", "d", "e")
 
-## run algorithm on x:
-(cl <- kmodes(x, 2))
+x <- c(4,5,9,12)
+y <- c(9,8,6,3)
 
-## and visualize with some jitter:
-plot(jitter(x), col = cl$cluster)
-points(cl$modes, col = 1:5, pch = 8)
-# }
+#x <- c(4,5,9,9,9,9,9,9,9,9,9,9,9,12)
+#y <- c(9,8,6,6,6,6,6,6,6,6,6,6,6,3)
+
+model <- lm(y~x)
+plot(x,y)
+print(summary(model))
+abline(model)
