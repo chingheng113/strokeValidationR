@@ -73,8 +73,13 @@ nih <- data_clean ('NIH', filter.levels.lower, filter.levels.upper)
 write.csv(nih, file = "data/NIH_cleaned.csv", row.names=FALSE)
 
 alias <- data_clean ('ALIAS', filter.levels.lower, filter.levels.upper)
+write.csv(alias, file = "data/ALIAS_cleaned.csv", row.names=FALSE)
+
 fast <- data_clean ('FAST', filter.levels.lower, filter.levels.upper)
+write.csv(fast, file = "data/FAST_cleaned.csv", row.names=FALSE)
+
 tnk <- data_clean ('TNK', filter.levels.lower, filter.levels.upper)
+write.csv(tnk, file = "data/TNK_cleaned.csv", row.names=FALSE)
 
 
 
