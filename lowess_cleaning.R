@@ -67,12 +67,16 @@ print(filter.levels.upper)
 
 # Data cleaning ===
 tsr <- data_clean ('TSR_2017', filter.levels.lower, filter.levels.upper)
-write.csv(tsr, file = "data/TSR_2017_cleaned.csv", row.names=FALSE)
+write.csv(tsr, file = "data/TSR_2017_lowess.csv", row.names=FALSE)
+
 nih <- data_clean ('NIH', filter.levels.lower, filter.levels.upper)
+write.csv(nih, file = "data/NIH_lowess.csv", row.names=FALSE)
+
 alias <- data_clean ('ALIAS', filter.levels.lower, filter.levels.upper)
+write.csv(alias, file = "data/ALIAS_lowess.csv", row.names=FALSE)
+
 fast <- data_clean ('FAST', filter.levels.lower, filter.levels.upper)
+write.csv(fast, file = "data/FAST_lowess.csv", row.names=FALSE)
+
 tnk <- data_clean ('TNK', filter.levels.lower, filter.levels.upper)
-
-
-
-
+write.csv(tnk, file = "data/TNK_lowess.csv", row.names=FALSE)
