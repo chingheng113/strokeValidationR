@@ -43,6 +43,7 @@ lower.lowess2 <- lower.lowess-trim.mean.sd.obs
 upper.lowess <- lowess.data$y+trim.mean.sd.obs
 upper.lowess2 <- upper.lowess+trim.mean.sd.obs
 
+# Using one standard deviation as boundary
 filter.levels.lower <- unique(lower.lowess)
 filter.levels.upper <- unique(upper.lowess)
 print('filter.levels.lower')
@@ -56,27 +57,27 @@ print(filter.levels.upper)
 # p+geom_smooth(method="loess", formula=data_bm$Barthel_Total ~ data_bm$discharged_mrs, size = 1.5)
 
 # plot regression line ===
-plot(data_bm$discharged_mrs,data_bm$Barthel_Total,xlab="MRS",ylab="BAR",main="LOWESS (f=1/32)",col=2)
-lines(lowess.data$x,lowess.data$y,lwd=2)
- 
-lines(lowess.data$x,lower.lowess,lwd=2,lty=2)
-lines(lowess.data$x,lower.lowess2,lwd=2,lty=3)
-
-lines(lowess.data$x,upper.lowess,lwd=2,lty=2)
-lines(lowess.data$x,upper.lowess2,lwd=2,lty=3)
+# plot(data_bm$discharged_mrs,data_bm$Barthel_Total,xlab="MRS",ylab="BAR",main="LOWESS (f=1/32)",col=2)
+# lines(lowess.data$x,lowess.data$y,lwd=2)
+#  
+# lines(lowess.data$x,lower.lowess,lwd=2,lty=2)
+# lines(lowess.data$x,lower.lowess2,lwd=2,lty=3)
+# 
+# lines(lowess.data$x,upper.lowess,lwd=2,lty=2)
+# lines(lowess.data$x,upper.lowess2,lwd=2,lty=3)
 
 # Data cleaning === with 1*std
-# tsr <- data_clean ('TSR_2017', filter.levels.lower, filter.levels.upper)
-# write.csv(tsr, file = "data/TSR_2017_lowess.csv", row.names=FALSE)
-# 
-# nih <- data_clean ('NIH', filter.levels.lower, filter.levels.upper)
-# write.csv(nih, file = "data/NIH_lowess.csv", row.names=FALSE)
-# 
-# alias <- data_clean ('ALIAS', filter.levels.lower, filter.levels.upper)
-# write.csv(alias, file = "data/ALIAS_lowess.csv", row.names=FALSE)
-# 
-# fast <- data_clean ('FAST', filter.levels.lower, filter.levels.upper)
-# write.csv(fast, file = "data/FAST_lowess.csv", row.names=FALSE)
-# 
-# tnk <- data_clean ('TNK', filter.levels.lower, filter.levels.upper)
-# write.csv(tnk, file = "data/TNK_lowess.csv", row.names=FALSE)
+tsr <- data_clean ('TSR_2017', filter.levels.lower, filter.levels.upper)
+write.csv(tsr, file = "data/TSR_2017_lowess.csv", row.names=FALSE)
+
+nih <- data_clean ('NIH', filter.levels.lower, filter.levels.upper)
+write.csv(nih, file = "data/NIH_lowess.csv", row.names=FALSE)
+
+alias <- data_clean ('ALIAS', filter.levels.lower, filter.levels.upper)
+write.csv(alias, file = "data/ALIAS_lowess.csv", row.names=FALSE)
+
+fast <- data_clean ('FAST', filter.levels.lower, filter.levels.upper)
+write.csv(fast, file = "data/FAST_lowess.csv", row.names=FALSE)
+
+tnk <- data_clean ('TNK', filter.levels.lower, filter.levels.upper)
+write.csv(tnk, file = "data/TNK_lowess.csv", row.names=FALSE)
