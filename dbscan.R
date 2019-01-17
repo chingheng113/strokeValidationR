@@ -5,7 +5,7 @@ library("fpc")
 library("caret")
 source('my_util.R')
 
-mrs = '0'
+mrs = '4'
 tsr_data <- load_tsr_data(mrs, '') # all, 0..5;is/he
 bData <- tsr_data$b_data
 
@@ -16,7 +16,7 @@ bData_pca <- bData_pca[,1:2]
 bData_pca_unique <- unique(bData_pca)
 
 #dbscan
-res <- fpc::dbscan(bData_pca_unique, eps = 1.0, MinPts = 3)
+res <- fpc::dbscan(bData_pca_unique, eps = 0.5, MinPts = 3)
 # Paramaters: 0-1.0, 1-0.3, 2-0.6, 3-1.0, 4-0.7, 5-0.6
 
 
@@ -31,7 +31,7 @@ train_label <- replace(train_label, train_label == 0, -1) # <- consist with pyth
 train_label <-replace(train_label, train_label > -1, 0) # <- consist with pyhton
 
 
-test_data <- load_test('nih', mrs)
+test_data <- load_test('alias', mrs)
 test_label <- test_data$label
 test_bi <- subset( test_data, select = -label )
 test_bi <- predict(pca_result_tsr, newdata=test_bi)[,1:2] # doing PCA

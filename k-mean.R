@@ -2,6 +2,7 @@ rm(list=ls())
 cat("\014")
 library("factoextra")
 library("fpc")
+library("purrr")
 source('my_util.R')
 
 tsr_data <- load_tsr_data('3', '') # all, 0..5;is/he
