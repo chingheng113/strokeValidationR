@@ -5,7 +5,7 @@ library("fpc")
 library("purrr")
 source('my_util.R')
 
-tsr_data <- load_tsr_data('3', '') # all, 0..5;is/he
+tsr_data <- load_tsr_data('0', '') # all, 0..5;is/he
 bData <- tsr_data$b_data
 pca_result_tsr <- princomp(bData, cor = FALSE)
 bData_pca <- pca_result_tsr$scores
@@ -13,21 +13,17 @@ bData_pca <- bData_pca[,1:2]
 bData_pca_unique <- unique(bData_pca)
 # ====================================================================
 # https://uc-r.github.io/kmeans_clustering#distance
-# function to compute total within-cluster sum of square 
-wss <- function(k) {
-  kmeans(bData_pca, k, nstart = 10 )$tot.withinss
-}
-# Compute and plot wss for k = 1 to k = 15
-k.values <- 1:15
-# extract wss for 2-15 clusters
-wss_values <- map_dbl(k.values, wss)
-plot(k.values, wss_values,
-     type="b", pch = 19, frame = FALSE, 
-     xlab="Number of clusters K",
-     ylab="Total within-clusters sum of squares")
+# --------------
+fviz_nbclust(bData_pca, 
+             FUNcluster = kmeans,# K-Means
+             method = "silhouette",     # total within sum of square
+             k.max = 12          # max number of clusters to consider
+) +
+labs(title="Elbow Method for K-Means") +
+geom_vline(xintercept = 3, linetype = 2)       # 在 X=n的地方畫一條垂直虛線
 # ====================================================================
 # k-mean
-km.res = kmeans(bData_pca, 2, nstart = 10)
+km.res = kmeans(bData_pca, 8, nstart = 10)
 fviz_cluster(km.res, bData_pca, frame = FALSE, geom = "point")
 min_clust <- min(table(km.res$cluster))
 print(min_clust/nrow(bData))

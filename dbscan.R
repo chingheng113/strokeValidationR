@@ -6,6 +6,7 @@ library("caret")
 source('my_util.R')
 
 mrs = '4'
+test_set = 'tnk'
 tsr_data <- load_tsr_data(mrs, '') # all, 0..5;is/he
 bData <- tsr_data$b_data
 
@@ -16,7 +17,7 @@ bData_pca <- bData_pca[,1:2]
 bData_pca_unique <- unique(bData_pca)
 
 #dbscan
-res <- fpc::dbscan(bData_pca_unique, eps = 0.5, MinPts = 3)
+res <- fpc::dbscan(bData_pca_unique, eps = 0.7, MinPts = 3)
 # Paramaters: 0-1.0, 1-0.3, 2-0.6, 3-1.0, 4-0.7, 5-0.6
 
 
@@ -31,7 +32,7 @@ train_label <- replace(train_label, train_label == 0, -1) # <- consist with pyth
 train_label <-replace(train_label, train_label > -1, 0) # <- consist with pyhton
 
 
-test_data <- load_test('alias', mrs)
+test_data <- load_test(test_set, mrs)
 test_label <- test_data$label
 test_bi <- subset( test_data, select = -label )
 test_bi <- predict(pca_result_tsr, newdata=test_bi)[,1:2] # doing PCA
@@ -46,6 +47,6 @@ tp <- cft[2, 2]
 tn <- cft[1, 1]
 fp <- cft[2, 1]
 fn <- cft[1, 2]
-print(sensitivity <- round(tp/(tp + fn), digits=4))
-print(specificity <- round(tn/(tn + fp), digits=4))
-print(accuracy <- round((tp + tn)/(tp + tn + fp + fn), digits=4))
+print(sensitivity <- round(tp/(tp + fn), digits=3))
+print(specificity <- round(tn/(tn + fp), digits=3))
+print(accuracy <- round((tp + tn)/(tp + tn + fp + fn), digits=3))

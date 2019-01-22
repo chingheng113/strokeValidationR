@@ -4,7 +4,7 @@ library("factoextra")
 library("fpc")
 source('my_util.R')
 
-tsr_data <- load_tsr_data('0', 'is') # all, 0..5;is/he
+tsr_data <- load_tsr_data('0', '') # all, 0..5;is/he
 bData <- tsr_data$b_data
 bData <- unique(bData)
 # PCA reduction
