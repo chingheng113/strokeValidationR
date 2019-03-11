@@ -75,7 +75,7 @@ final.pos <- NULL
 for (i in 1:length(cx.table.pos)) {
 	final.pos <- rbind(final.pos,strsplit(cx.table.pos[i], "_")[[1]])
 }
-plot(data_bm$discharged_mrs,data_bm$Barthel_Total,xlab="mRS Degree",ylab="Barthel index total score",main="LOWESS (f=1/32)",col=2,type='n')
+plot(data_bm$discharged_mrs,data_bm$Barthel_Total,xlab="Discharge mRS value",ylab="Discharge Barthel index total score",main="LOWESS (f=1/32)",col=2,type='n')
 ppp <- 20*(cx.table.size*10)
 ppp <- ifelse(ppp > 3.5, 3.5 ,ppp)
 points(final.pos[,1],final.pos[,2],col=2,cex=ppp)
